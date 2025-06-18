@@ -40,6 +40,17 @@ services:
         depends_on:
             - vllm
         restart: always
+        command:
+            [
+                "uvicorn",
+                "server:app",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8003",
+                "--log-level",
+                "debug",
+            ]
         deploy:
             resources:
                 reservations:

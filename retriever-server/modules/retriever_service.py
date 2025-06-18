@@ -122,6 +122,6 @@ class RetrieverService:
         result = self.find_from_custody(collection_name=collection_name, keyword=keyword)
         
         if result and "code" in result[0] and code_name in result[0]["code"]:
-            return result[0]["code"][code_name]
+            return str(result[0]["code"][code_name])
 
         return ""

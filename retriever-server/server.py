@@ -19,7 +19,7 @@ EMBEDDING_MODEL_PATH = os.getenv("EMBEDDING_MODEL_PATH", "/app/embedding-model")
 CHROMA_DATA_PATH = os.getenv("CHROMA_DATA_PATH", "/app/chroma")
 XLSX_FILES_PATH = os.getenv("XLSX_FILES_PATH", "/app/xlsx_files")
 
-retriever = RetrieverService(persist_directory=CHROMA_DATA_PATH, embedding_model=CHROMA_DATA_PATH)
+retriever = RetrieverService(persist_directory=CHROMA_DATA_PATH, embedding_model=EMBEDDING_MODEL_PATH)
 
 # Collection #
 @app.on_event("startup")
@@ -37,7 +37,7 @@ def create_collections():
         retriever.index_xlsx("fund", corsignor_file_path, "펀드", {"펀드명": 1}, [{"펀드": 0}])
         retriever.index_xlsx("payment", corsignor_file_path, "결제방식(자금)", {"결제방식명": 1}, [{"결제방식": 0}])
         retriever.index_xlsx("money", corsignor_file_path, "통화", {"통화명": 1}, [{"통화": 0}])
-        retriever.index_xlsx("etc", etc_file_path, "sheet1", {"content": 4}, [{"asset_kind": 5}, {"job_cd": 6}])
+        retriever.index_xlsx("etc", etc_file_path, "Sheet1", {"content": 4}, [{"asset_kind": 5}, {"job_cd": 6}])
         retriever.index_xlsx("limit", limit_file_path, "Sheet1", {"해석": 3}, [{"제한코드": 1}, {"제한명": 2}])
         print("컬렉션 목록 생성 완료")
     except Exception as e:
