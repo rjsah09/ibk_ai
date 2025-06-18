@@ -51,7 +51,7 @@ def retrieve(query: RequestModel):
     return ResponseModel(
         item=result["item"],
         metadata=result["metadata"],
-        similarity=result["similarity"])애찯ㄱ 
+        similarity=result["similarity"])
 
 # ---------------------------------------- deprecated ------------------------------------------------- #
 @app.post("/query/company", response_model=CodeResponseModel)
