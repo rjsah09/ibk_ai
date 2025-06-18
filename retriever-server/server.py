@@ -50,7 +50,7 @@ def retrieve(query: RequestModel):
     result = retriever.find_top_from_custody(collection_name=query.collection_name, keyword=query.query)
     
     if result:
-        return ResponseModel(item=result["item"], metadata=result["metadata"], similarity=result["similarity"])
+        return ResponseModel(item=result["item"], metadata=[result["metadata"]], similarity=result["similarity"])
     
     return ResponseModel(item="", metadata=[], similarity=0.0)
 
