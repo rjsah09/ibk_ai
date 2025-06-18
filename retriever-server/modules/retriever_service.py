@@ -119,7 +119,7 @@ class RetrieverService:
         return result
     
     def find_top_from_custody(self, collection_name: str, keyword: str) -> dict:
-        k_result = self.find_code_from_custody(collection_name=collection_name, keyword=keyword)
+        k_result = self.find_from_custody(collection_name=collection_name, keyword=keyword)
         
         if k_result:
             return k_result[0]
