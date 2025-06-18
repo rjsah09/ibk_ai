@@ -4,7 +4,7 @@ FROM python:3.12
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
 # 패키지 설치
-COPY ./requirements.txt /app/requirements.txt
+COPY ../requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # 작업 디렉토리

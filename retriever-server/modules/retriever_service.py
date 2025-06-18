@@ -1,4 +1,4 @@
-from chroma_persistent import ChromaPersistent
+from .chroma_persistent import ChromaPersistent
 import pandas as pd
 
 class RetrieverService:

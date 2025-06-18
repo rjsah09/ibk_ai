@@ -22,27 +22,27 @@ services:
         restart: always
 
     retriever:
-    build:
-        context: ./retriever-server
-    container_name: retriever_server
-    ports:
-        - "8003:8003"
-    volumes:
-        - ./chroma:/app/chroma
-        - /home/lacs32/Desktop/morgan/embedding-model:/app/embedding-model:ro
-        - ./xlsx_files:/app/xlsx_files:ro
-    environment:
-        - VLLM_HOST=vllm-server
-        - VLLM_PORT=8002
-        - CHROMA_DATA_PATH=/app/chroma
-        - EMBEDDING_MODEL_PATH=/app/embedding-model
-        - XLSX_FILES_PATH=/app/xlsx_files
-    depends_on:
-        - vllm
-    restart: always
-    deploy:
-        resources:
-            reservations:
-                devices:
-                    - driver: nvidia
-                    - capabilities: [gpu]
+        build:
+            context: ./retriever-server
+        container_name: retriever_server
+        ports:
+            - "8003:8003"
+        volumes:
+            - ./chroma:/app/chroma
+            - /home/lacs32/Desktop/morgan/embedding-model:/app/embedding-model:ro
+            - ./xlsx_files:/app/xlsx_files:ro
+        environment:
+            - VLLM_HOST=vllm-server
+            - VLLM_PORT=8002
+            - CHROMA_DATA_PATH=/app/chroma
+            - EMBEDDING_MODEL_PATH=/app/embedding-model
+            - XLSX_FILES_PATH=/app/xlsx_files
+        depends_on:
+            - vllm
+        restart: always
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          capabilities: [gpu]
