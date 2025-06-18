@@ -10,6 +10,7 @@ from models.request_model import RequestModel
 from models.code_response_model import CodeResponseModel
 from models.etc_response_model import EtcResponseModel
 from models.limit_response_model import LimitResponseModel
+from models.response_model import ResponseModel
 
 app = FastAPI()
 
@@ -44,9 +45,19 @@ def create_collections():
         print(f"컬렉션 생성 중 에러 발생: {str(e)}")
 
 # Query #
+@app.post("/query", response_model=ResponseModel)
+def retrieve(query: RequestModel):
+    result = retriever.find_top_from_custody(collection_name=query.collection_name, keyword=query.query)
+    return ResponseModel(
+        item=result["item"],
+        metadata=result["metadata"],
+        similarity=result["similarity"])
+
+# ---------------------------------------- deprecated ------------------------------------------------- #
 @app.post("/query/company", response_model=CodeResponseModel)
 def find_company_code(data: RequestModel):
-    return CodeResponseModel(code=retriever.find_company_code(data.query))
+    result = retriever.find_company_code(data.query)
+    return CodeResponseModel(code=result)
 
 @app.post("/query/payment", response_model=CodeResponseModel)
 def find_payment_code(data: RequestModel):
@@ -69,6 +80,7 @@ def query_etc(data: RequestModel):
 def query_limit(data: RequestModel):
     results = retriever.match_by_limit_string(data.query)
     return LimitResponseModel(limitations=results)
+# ---------------------------------------- deprecated ------------------------------------------------- #
 
 # Exception #
 @app.exception_handler(HTTPException)

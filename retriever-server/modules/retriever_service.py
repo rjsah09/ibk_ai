@@ -44,12 +44,12 @@ class RetrieverService:
         for i in range(0, len(documents_to_index), chunk_size):
             chunk = documents_to_index[i:i + chunk_size]
             self.persistent.index(collection_name=collection_name, document=chunk)
-                
 
     def delete_all_collections(self):
         '''컬렉션 초기화'''
         self.persistent.delete_all_collections()
     
+    # ---------------------------------------- deprecated ------------------------------------------------- #
     def find_company_code(self, company_string: str) -> str:
         '''위탁사 탭. 위탁사명 -> 위탁사 코드'''
         return self.find_code_from_custody(collection_name="company", keyword=company_string, code_name="위탁사")
@@ -95,6 +95,7 @@ class RetrieverService:
             })
                 
         return result
+    # ---------------------------------------- deprecated ------------------------------------------------- #
         
     def calculate_similarity(self, distance: float, alpha: float):
         '''코사인 거리 -> 유사도 변환'''
@@ -117,6 +118,15 @@ class RetrieverService:
     
         return result
     
+    def find_top_from_custody(self, collection_name: str, keyword: str) -> dict:
+        k_result = self.find_code_from_custody(collection_name=collection_name, keyword=keyword)
+        
+        if k_result:
+            return k_result[0]
+        
+        return {}
+    
+    # deprecated #
     def find_code_from_custody(self, collection_name: str, keyword: str, code_name: str) -> str:
         '''컬렉션명, 쿼리, 코드명 -> 질의 결과(코드: str)'''
         result = self.find_from_custody(collection_name=collection_name, keyword=keyword)
