@@ -112,7 +112,7 @@ class RetrieverService:
             if similarity >= 70.0:
                 result.append({
                     "item": item["content"],
-                    "code": item["metadata"],
+                    "metadata": item["metadata"],
                     "similarity": similarity
                 })
     
