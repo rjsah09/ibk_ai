@@ -48,10 +48,11 @@ def create_collections():
 @app.post("/query", response_model=ResponseModel)
 def retrieve(query: RequestModel):
     result = retriever.find_top_from_custody(collection_name=query.collection_name, keyword=query.query)
-    return ResponseModel(
-        item=result["item"],
-        metadata=result["metadata"],
-        similarity=result["similarity"])
+    
+    if result:
+        return ResponseModel(item=result["item"], metadata=result["metadata"], similarity=result["similarity"])
+    
+    return ResponseModel(item="", metadata=[], similarity=0.0)
 
 # ---------------------------------------- deprecated ------------------------------------------------- #
 @app.post("/query/company", response_model=CodeResponseModel)
