@@ -1,0 +1,8 @@
+# Retriever
+torch
+fastapi
+uvicorn[standard]
+chromadb
+pandas
+openpyxl
+sentence-transformers
